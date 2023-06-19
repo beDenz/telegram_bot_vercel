@@ -1,0 +1,28 @@
+{
+  "name": "telegram-bot",
+  "version": "1.1.0",
+  "description": "Telegram Bot",
+  "main": "src/index.ts",
+  "author": "Mark Pavlov (https://github.com/m7mark)",
+  "homepage": "https://github.com/m7mark/telegram-bot-vercel-boilerplate",
+  "dependencies": {
+    "@vercel/node": "^2.10.3",
+    "dotenv-cli": "^7.2.1",
+    "telegraf": "^4.12.2"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/node": "^18.15.11",
+    "@vercel/ncc": "^0.36.1",
+    "debug": "^4.3.4",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "scripts": {
+    "dev": "DEBUG=bot* dotenv -- nodemon -e ts -x ts-node src/index.ts",
+    "build": "ncc build src/index.ts -o public -m",
+    "prettier": "prettier --write 'src/**/*.ts'"
+  }
+}
