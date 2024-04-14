@@ -1,6 +1,7 @@
-import { Context } from 'telegraf';
+import { Context, Markup } from 'telegraf';
 import createDebug from 'debug';
 import { doc } from '../core';
+import { ASK_QUESTION, MAKE_AN_APPOINTMENT } from '../commands/common';
 
 const debug = createDebug('bot:greeting_text');
 
@@ -16,7 +17,15 @@ const greeting = () => async (ctx: Context) => {
   const message = sheet.getCellByA1('B2');
 
   await ctx.replyWithPhoto({ url: image.value.toString() });
-  ctx.reply(message.value.toString().replace('{{username}}', userName));
+
+  const greetingText = message.value.toString().replace('{{username}}', userName);
+
+  ctx.reply(
+    greetingText,
+    Markup.inlineKeyboard([
+      [Markup.button.callback('Записаться на онлайн прием', MAKE_AN_APPOINTMENT)],
+      [Markup.button.callback('Задать вопрос', ASK_QUESTION)]
+    ]));
 };
 
 export { greeting };
