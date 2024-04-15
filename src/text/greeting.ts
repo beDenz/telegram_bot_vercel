@@ -7,7 +7,6 @@ const debug = createDebug('bot:greeting_text');
 
 const greeting = () => async (ctx: Context) => {
   console.log('!!!greeting');
-  return;
   debug('Triggered "greeting" text command');
 
   const userName = ctx.message?.from.last_name || '';

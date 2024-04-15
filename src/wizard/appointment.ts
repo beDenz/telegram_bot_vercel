@@ -8,6 +8,7 @@ import { createMessage } from './utils';
 export const appointmentWizard = new Scenes.WizardScene<BotContext>(
   'appointment-wizard',
   async ctx => {
+    console.log('!!!appointment-wizard start');
     await doc.loadInfo();
     const sheet = doc.sheetsByIndex[0];
     await sheet.loadCells(['B3']);
@@ -19,6 +20,7 @@ export const appointmentWizard = new Scenes.WizardScene<BotContext>(
 		return ctx.wizard.next();
 	},
 	async ctx => {
+    console.log('!!!appointment-wizard finish');
     // @ts-ignore
     if (ctx.update.callback_query?.data === 'cancel') {
 		  await ctx.reply('Действие отменено');
