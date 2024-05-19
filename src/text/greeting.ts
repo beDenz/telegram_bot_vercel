@@ -1,25 +1,23 @@
 import { Context, Markup } from 'telegraf';
 import createDebug from 'debug';
-import { doc } from '../core';
 import { ASK_QUESTION, MAKE_AN_APPOINTMENT } from '../commands/common';
+import { getTable, getCell } from '../core/table';
 
 const debug = createDebug('bot:greeting_text');
 
 const greeting = () => async (ctx: Context) => {
-  console.log('!!!greeting');
   debug('Triggered "greeting" text command');
+
+  await getTable(ctx);
 
   const userName = ctx.message?.from.last_name || '';
 
-  await doc.loadInfo();
-  const sheet = doc.sheetsByIndex[0];
-  await sheet.loadCells(['B2', 'B1']);
-  const image = sheet.getCellByA1('B1');
-  const message = sheet.getCellByA1('B2');
+    const image = getCell('B1', ctx);
+    const message = getCell('B2', ctx);
 
-  await ctx.replyWithPhoto({ url: image.value.toString() });
+  await ctx.replyWithPhoto({ url: image });
 
-  const greetingText = message.value.toString().replace('{{username}}', userName);
+  const greetingText = message.replace('{{username}}', userName);
 
   ctx.reply(
     greetingText,
