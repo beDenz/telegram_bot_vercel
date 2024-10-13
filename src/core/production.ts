@@ -54,6 +54,16 @@ export const production = async (bot: Telegraf<BotContext>) => {
     console.log('!!!!!!post /')
     await bot.handleUpdate(req.body as unknown as Update, res);
   });
+
+  app.post('/telegraf', async (req, res) => {
+    console.log('!!!!!!post /telegraf')
+    await bot.handleUpdate(req.body as unknown as Update, res);
+  });
+
+  app.post('/telegraf/', async (req, res) => {
+    console.log('!!!!!!post /telegraf/')
+    await bot.handleUpdate(req.body as unknown as Update, res);
+  });
   // bot
 	// .launch({
   //   webhook: {
