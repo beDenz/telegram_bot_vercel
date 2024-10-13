@@ -3,15 +3,15 @@ import createDebug from 'debug';
 import { Telegraf } from 'telegraf';
 // import { Update } from 'telegraf/typings/core/types/typegram';
 import { BotContext } from '../types/common';
-import * as express from 'express';
+// import * as express from 'express';
 
 // const debug = createDebug('bot:dev');
 
 // const PORT = (process.env.PORT && parseInt(process.env.PORT, 10)) || 3000;
 // const VERCEL_URL = `${process.env.VERCEL_URL}`;
 
-const webhookDomain = '38.180.225.94';
-const port = 3000;
+const webhookDomain = 'http://38.180.225.94';
+const port = 8443;
 
 // const production = async (
 //   req: VercelRequest,
@@ -45,8 +45,15 @@ const port = 3000;
 
 export const production = async (bot: Telegraf<BotContext>) => {
   console.log('!!!start production');
-  const app = express();
+  // const app = express();
 
-  app.use(await bot.createWebhook({ domain: webhookDomain }));
-  app.listen(port, () => console.log("Listening on port", port));
+  // app.use(await bot.createWebhook({ domain: webhookDomain }));
+  // app.listen(port, () => console.log("Listening on port", port));
+  bot
+	.launch({
+    webhook: {
+      domain: webhookDomain,
+      port: port,
+    } })
+	.then(() => console.log("Webhook bot listening on port", port));
 }
